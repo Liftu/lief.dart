@@ -43,7 +43,12 @@ class PeBinary {
 
     // imports
     imports = <PeImport>[];
-    for (int i = 0; i < (dataDirectories[1].size / 0x14 - 1); i++) {
+    for (int i = 0;
+        i <
+            (dataDirectories[LIEF_PE_DATA_DIRECTORY.LIEF_PE_IMPORT_TABLE].size /
+                    0x14 -
+                1);
+        i++) {
       imports.add(PeImport(peImport: peBinary.imports[i][0]));
     }
   }
