@@ -3,11 +3,12 @@ import 'dart:typed_data';
 import 'package:lief/lief.dart';
 
 void main() {
-  elf_example();
-  pe_example();
+  elfExample();
+  machoExample();
+  peExample();
 }
 
-void elf_example() {
+void elfExample() {
   print("\n\n=== Parsing ELF binary ===");
   ElfBinary binary = Lief().parseElfFile("LIEF/lib/libLIEF_linux_x64.so");
 
@@ -41,7 +42,35 @@ void elf_example() {
   }
 }
 
-void pe_example() {
+void machoExample() {
+  print("\n\n=== Parsing Mach-O binary ===");
+  MachoBinary binary = Lief().parseMachoFile("example/MachO-OSX-x64-ls");
+
+  print("Mach-O file: ${binary.name}");
+  print("Magic: 0x${binary.header.magic.toRadixString(16).toUpperCase()}");
+
+  if (binary.segments.isNotEmpty) {
+    print("\nSegments:");
+    for (int i = 0; i < binary.segments.length && i < 4; i++) {
+      print("\t\"${binary.segments[i].name}\":");
+
+      if (binary.segments[i].sections.isNotEmpty) {
+        for (int j = 0; j < binary.segments[i].sections.length && j < 5; j++) {
+          print("\t\t\"${binary.segments[i].sections[j].name}\"");
+        }
+      }
+    }
+  }
+
+  if (binary.symbols.isNotEmpty) {
+    print("\nSymbols:");
+    for (int i = 0; i < binary.symbols.length && i < 10; i++) {
+      print("\t\"${binary.symbols[i].name}\"");
+    }
+  }
+}
+
+void peExample() {
   print("\n\n=== Parsing PE binary ===");
   PeBinary binary = Lief().parsePeFile("LIEF/lib/LIEF_win_x86.dll");
 
