@@ -10,10 +10,12 @@ import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
 
 import 'src/bindings/LIEF_bindings.dart';
-import 'src/pe.dart';
 import 'src/elf.dart';
+import 'src/macho.dart';
+import 'src/pe.dart';
 
 export 'src/pe.dart';
+export 'src/macho.dart';
 export 'src/elf.dart';
 
 class Lief {
@@ -150,5 +152,14 @@ class Lief {
       throw Exception("Unable to parse ELF binary (${filename})");
     }
     return ElfBinary(elfBinary: pElfBinary[0]);
+  }
+
+  MachoBinary parseMachoFile(String filename) {
+    Pointer<Macho_Binary_t> pElfBinary = lief.macho_parse(
+        filename.toNativeUtf8().cast<Char>())[0]; // Can have multiples ?
+    if (pElfBinary.address == 0) {
+      throw Exception("Unable to parse Mach-O binary (${filename})");
+    }
+    return MachoBinary(machoBinary: pElfBinary[0]);
   }
 }
