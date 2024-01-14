@@ -23,16 +23,17 @@ class PeBinary {
     dosHeader = PeDosHeader(dosHeader: peBinary.dos_header);
 
     // ntHeader
-    header = PeHeader(header: peBinary.header);
+    header = PeHeader(peHeader: peBinary.header);
 
     // optionalHeader
-    optionalHeader = PeOptionalHeader(optionalHeader: peBinary.optional_header);
+    optionalHeader =
+        PeOptionalHeader(peOptionalHeader: peBinary.optional_header);
 
     // dataDirectories
     dataDirectories = <PeDataDirectory>[];
     for (int i = 0; i < optionalHeader.numberofRvaAndSize; i++) {
-      dataDirectories
-          .add(PeDataDirectory(dataDirectory: peBinary.data_directories[i][0]));
+      dataDirectories.add(
+          PeDataDirectory(peDataDirectory: peBinary.data_directories[i][0]));
     }
 
     // sections
@@ -106,7 +107,7 @@ class PeDosHeader {
 }
 
 class PeHeader {
-  final Pe_Header_t header;
+  final Pe_Header_t peHeader;
   late int signature;
   late int machine;
   late int numberOfSections;
@@ -116,23 +117,23 @@ class PeHeader {
   late int sizeofOptionalHeader;
   late int characteristics;
 
-  PeHeader({required this.header}) {
-    signature = header.signature[0] |
-        header.signature[1] << 8 |
-        header.signature[2] << 16 |
-        header.signature[3] << 24;
-    machine = header.machine;
-    numberOfSections = header.numberof_sections;
-    timeDateStamp = header.time_date_stamp;
-    pointertoSymbolTable = header.pointerto_symbol_table;
-    numberofSymbols = header.numberof_symbols;
-    sizeofOptionalHeader = header.sizeof_optional_header;
-    characteristics = header.characteristics;
+  PeHeader({required this.peHeader}) {
+    signature = peHeader.signature[0] |
+        peHeader.signature[1] << 8 |
+        peHeader.signature[2] << 16 |
+        peHeader.signature[3] << 24;
+    machine = peHeader.machine;
+    numberOfSections = peHeader.numberof_sections;
+    timeDateStamp = peHeader.time_date_stamp;
+    pointertoSymbolTable = peHeader.pointerto_symbol_table;
+    numberofSymbols = peHeader.numberof_symbols;
+    sizeofOptionalHeader = peHeader.sizeof_optional_header;
+    characteristics = peHeader.characteristics;
   }
 }
 
 class PeOptionalHeader {
-  final Pe_OptionalHeader_t optionalHeader;
+  final Pe_OptionalHeader_t peOptionalHeader;
   late int magic;
   late int majorLinkerVersion;
   late int minorLinkerVersion;
@@ -164,48 +165,50 @@ class PeOptionalHeader {
   late int loaderFlags;
   late int numberofRvaAndSize;
 
-  PeOptionalHeader({required this.optionalHeader}) {
-    magic = optionalHeader.magic;
-    majorLinkerVersion = optionalHeader.major_linker_version;
-    minorLinkerVersion = optionalHeader.minor_linker_version;
-    sizeofCode = optionalHeader.sizeof_code;
-    sizeofInitializedData = optionalHeader.sizeof_initialized_data;
-    sizeofUninitializedData = optionalHeader.sizeof_uninitialized_data;
-    addressofEntrypoint = optionalHeader.addressof_entrypoint;
-    baseofData = optionalHeader.baseof_data;
-    baseofCode = optionalHeader.baseof_code;
-    imagebase = optionalHeader.imagebase;
-    sectionAlignment = optionalHeader.section_alignment;
-    fileAlignment = optionalHeader.file_alignment;
-    majorOperatingSystemVersion = optionalHeader.major_operating_system_version;
-    minorOperatingSystemVersion = optionalHeader.minor_operating_system_version;
-    majorImageVersion = optionalHeader.major_image_version;
-    minorImageVersion = optionalHeader.minor_image_version;
-    majorSubsystemVersion = optionalHeader.major_subsystem_version;
-    minorSubsystemVersion = optionalHeader.minor_subsystem_version;
-    win32VersionValue = optionalHeader.win32_version_value;
-    sizeofImage = optionalHeader.sizeof_image;
-    sizeOFHeaders = optionalHeader.sizeof_headers;
-    checksum = optionalHeader.checksum;
-    subsystem = optionalHeader.subsystem;
-    dllCharacteristics = optionalHeader.dll_characteristics;
-    sizeOfStackReverse = optionalHeader.sizeof_stack_reserve;
-    sizeOfStackcommit = optionalHeader.sizeof_stack_commit;
-    sizeOfHeapReverse = optionalHeader.sizeof_heap_reserve;
-    sizeOfHeapcommit = optionalHeader.sizeof_heap_commit;
-    loaderFlags = optionalHeader.loader_flags;
-    numberofRvaAndSize = optionalHeader.numberof_rva_and_size;
+  PeOptionalHeader({required this.peOptionalHeader}) {
+    magic = peOptionalHeader.magic;
+    majorLinkerVersion = peOptionalHeader.major_linker_version;
+    minorLinkerVersion = peOptionalHeader.minor_linker_version;
+    sizeofCode = peOptionalHeader.sizeof_code;
+    sizeofInitializedData = peOptionalHeader.sizeof_initialized_data;
+    sizeofUninitializedData = peOptionalHeader.sizeof_uninitialized_data;
+    addressofEntrypoint = peOptionalHeader.addressof_entrypoint;
+    baseofData = peOptionalHeader.baseof_data;
+    baseofCode = peOptionalHeader.baseof_code;
+    imagebase = peOptionalHeader.imagebase;
+    sectionAlignment = peOptionalHeader.section_alignment;
+    fileAlignment = peOptionalHeader.file_alignment;
+    majorOperatingSystemVersion =
+        peOptionalHeader.major_operating_system_version;
+    minorOperatingSystemVersion =
+        peOptionalHeader.minor_operating_system_version;
+    majorImageVersion = peOptionalHeader.major_image_version;
+    minorImageVersion = peOptionalHeader.minor_image_version;
+    majorSubsystemVersion = peOptionalHeader.major_subsystem_version;
+    minorSubsystemVersion = peOptionalHeader.minor_subsystem_version;
+    win32VersionValue = peOptionalHeader.win32_version_value;
+    sizeofImage = peOptionalHeader.sizeof_image;
+    sizeOFHeaders = peOptionalHeader.sizeof_headers;
+    checksum = peOptionalHeader.checksum;
+    subsystem = peOptionalHeader.subsystem;
+    dllCharacteristics = peOptionalHeader.dll_characteristics;
+    sizeOfStackReverse = peOptionalHeader.sizeof_stack_reserve;
+    sizeOfStackcommit = peOptionalHeader.sizeof_stack_commit;
+    sizeOfHeapReverse = peOptionalHeader.sizeof_heap_reserve;
+    sizeOfHeapcommit = peOptionalHeader.sizeof_heap_commit;
+    loaderFlags = peOptionalHeader.loader_flags;
+    numberofRvaAndSize = peOptionalHeader.numberof_rva_and_size;
   }
 }
 
 class PeDataDirectory {
-  final Pe_DataDirectory_t dataDirectory;
+  final Pe_DataDirectory_t peDataDirectory;
   late int rva;
   late int size;
 
-  PeDataDirectory({required this.dataDirectory}) {
-    rva = dataDirectory.rva;
-    size = dataDirectory.size;
+  PeDataDirectory({required this.peDataDirectory}) {
+    rva = peDataDirectory.rva;
+    size = peDataDirectory.size;
   }
 }
 
@@ -220,7 +223,7 @@ class PeSection {
   late int pointertoLineNumbers;
   late int characteristics;
   late int contentSize;
-  // content
+  // TODO: content
   late double entropy;
 
   PeSection({required this.peSection}) {
