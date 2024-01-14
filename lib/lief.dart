@@ -135,6 +135,9 @@ class Lief {
   PeBinary parsePeFile(String filename) {
     Pointer<Pe_Binary_t> pPeBinary =
         lief.pe_parse(filename.toNativeUtf8().cast<Char>());
+    if (pPeBinary.address == 0) {
+      throw Exception("Unable to parse PE binary (${filename})");
+    }
     return PeBinary(peBinary: pPeBinary[0]);
   }
 }
