@@ -47,6 +47,7 @@ class Lief {
       join(libsPath, "LIEF_win_${ARCH_X86}.dll");
 
   late DynamicLibrary dylib;
+  late LIEF lief;
 
   Lief._internal() {
     final String architecture = getArchitecture();
@@ -100,6 +101,7 @@ class Lief {
       throw Exception("Unkown running platform (${Platform.operatingSystem})");
     }
     dylib = DynamicLibrary.open(libraryPath);
+    lief = LIEF(dylib);
   }
 
   static String getArchitecture() {
@@ -132,7 +134,7 @@ class Lief {
 
   PeBinary parsePeFile(String filename) {
     Pointer<Pe_Binary_t> pPeBinary =
-        LIEF(dylib).pe_parse(filename.toNativeUtf8().cast<Char>());
+        lief.pe_parse(filename.toNativeUtf8().cast<Char>());
     return PeBinary(peBinary: pPeBinary[0]);
   }
 }
