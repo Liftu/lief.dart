@@ -11,8 +11,10 @@ import 'package:path/path.dart';
 
 import 'src/bindings/LIEF_bindings.dart';
 import 'src/pe.dart';
+import 'src/elf.dart';
 
 export 'src/pe.dart';
+export 'src/elf.dart';
 
 class Lief {
   static final Lief _instance = Lief._internal();
@@ -139,5 +141,14 @@ class Lief {
       throw Exception("Unable to parse PE binary (${filename})");
     }
     return PeBinary(peBinary: pPeBinary[0]);
+  }
+
+  ElfBinary parseElfFile(String filename) {
+    Pointer<Elf_Binary_t> pElfBinary =
+        lief.elf_parse(filename.toNativeUtf8().cast<Char>());
+    if (pElfBinary.address == 0) {
+      throw Exception("Unable to parse ELF binary (${filename})");
+    }
+    return ElfBinary(elfBinary: pElfBinary[0]);
   }
 }
