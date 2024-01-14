@@ -36,11 +36,11 @@ class Lief {
   static final String androidArm32LibPath =
       join(libsPath, "libLIEF_android_${ARCH_ARM32}.so");
   static final String macosAarch64LibPath =
-      join(libsPath, "libLIEF_macos_${ARCH_AARCH64}.a");
+      join(libsPath, "libLIEF_macos_${ARCH_AARCH64}.dylib");
   static final String macosX64LibPath =
-      join(libsPath, "libLIEF_macos_${ARCH_X64}.a");
+      join(libsPath, "libLIEF_macos_${ARCH_X64}.dylib");
   static final String iosAarch64LibPath =
-      join(libsPath, "libLIEF_ios_${ARCH_AARCH64}.a");
+      join(libsPath, "libLIEF_ios_${ARCH_AARCH64}.dylib");
   static final String winX64LibPath =
       join(libsPath, "LIEF_win_${ARCH_X64}.dll");
   static final String winX86LibPath =
