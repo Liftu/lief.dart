@@ -1,0 +1,15 @@
+name: LIEF
+description: LIEF bindings.
+
+output: "lib/src/bindings/LIEF_bindings.dart"
+headers:
+  entry-points:
+    - "LIEF/include/LIEF/LIEF.h"
+
+compiler-opts:
+  - "-I./LIEF/include/"
+
+comments:
+  style: any
+  lenght: full
+
