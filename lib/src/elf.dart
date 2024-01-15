@@ -117,7 +117,7 @@ class ElfSection {
   late int alignment;
   late int entrySize;
   late int size;
-  // TODO: content
+  late Uint8List content = Uint8List(0);
   late double entropy;
 
   ElfSection({required this.elfSection}) {
@@ -132,6 +132,10 @@ class ElfSection {
     alignment = elfSection.alignment;
     entrySize = elfSection.entry_size;
     size = elfSection.size;
+    if (elfSection.content.address != 0) {
+      content = elfSection.content.asTypedList(size);
+    }
+    entropy = elfSection.entropy;
   }
 }
 
@@ -144,7 +148,7 @@ class ElfSegment {
   late int offset;
   late int alignment;
   late int size;
-  // TODO: content
+  late Uint8List content = Uint8List(0);
 
   ElfSegment({required this.elfSegment}) {
     type = elfSegment.type;
@@ -154,6 +158,9 @@ class ElfSegment {
     offset = elfSegment.offset;
     alignment = elfSegment.alignment;
     size = elfSegment.size;
+    if (elfSegment.content.address != 0) {
+      content = elfSegment.content.asTypedList(size);
+    }
   }
 }
 

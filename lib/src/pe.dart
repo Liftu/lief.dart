@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
@@ -223,7 +224,7 @@ class PeSection {
   late int pointertoLineNumbers;
   late int characteristics;
   late int contentSize;
-  // TODO: content
+  late Uint8List content = Uint8List(0);
   late double entropy;
 
   PeSection({required this.peSection}) {
@@ -235,7 +236,9 @@ class PeSection {
     pointertoRelocation = peSection.pointerto_relocation;
     pointertoLineNumbers = peSection.pointerto_line_numbers;
     characteristics = peSection.characteristics;
-    // content
+    if (peSection.content.address != 0) {
+      content = peSection.content.asTypedList(size);
+    }
     contentSize = peSection.content_size;
     entropy = peSection.entropy;
   }

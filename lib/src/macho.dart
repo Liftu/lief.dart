@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:typed_data';
 
 import 'package:ffi/ffi.dart';
 import 'package:path/path.dart';
@@ -84,13 +85,15 @@ class MachoCommand {
   final Macho_Command_t machoCommand;
   late int command;
   late int size;
-  // TODO: data
+  late Uint8List data = Uint8List(0);
   late int offset;
 
   MachoCommand({required this.machoCommand}) {
     command = machoCommand.command;
     size = machoCommand.size;
-    // data
+    if (machoCommand.data.address != 0) {
+      data = machoCommand.data.asTypedList(size);
+    }
     offset = machoCommand.offset;
   }
 }
@@ -126,7 +129,7 @@ class MachoSection {
   late int virtualAddress;
   late int offset;
   late int size;
-  // content
+  late Uint8List content = Uint8List(0);
   late double entropy;
 
   MachoSection({required this.machoSection}) {
@@ -142,7 +145,9 @@ class MachoSection {
     virtualAddress = machoSection.virtual_address;
     offset = machoSection.offset;
     size = machoSection.size;
-    // content
+    if (machoSection.content.address != 0) {
+      content = machoSection.content.asTypedList(size);
+    }
     entropy = machoSection.entropy;
   }
 }
@@ -158,7 +163,7 @@ class MachoSegment {
   late int initProtection;
   late int numberofSections;
   late int flags;
-  // TODO: content
+  late Uint8List content = Uint8List(0);
   late int size;
   late List<MachoSection> sections;
 
@@ -173,6 +178,9 @@ class MachoSegment {
     numberofSections = machoSegment.numberof_sections;
     flags = machoSegment.flags;
     size = machoSegment.size;
+    if (machoSegment.content.address != 0) {
+      content = machoSegment.content.asTypedList(size);
+    }
     sections = <MachoSection>[];
     if (machoSegment.sections.address != 0) {
       for (int i = 0; i < numberofSections; i++) {
