@@ -85,4 +85,4 @@ Imported libs:
 
 This project is still an experiment on Dart bindings and thus is very limited.
 
-Many thanks to the developpers of the [LIEF Project](https://github.com/lief-project/LIEF).
+Many thanks to the [developpers](https://github.com/romainthomas) of the [LIEF Project](https://github.com/lief-project/LIEF).
