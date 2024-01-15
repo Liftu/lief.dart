@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 7.0.1-wip">
+  <meta name="description" content="lief API docs, for the Dart programming language.">
+  <title>lief - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li class="self-crumb">lief package</li>
+  </ol>
+  <div class="self-name">lief</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <!--
+This README describes the package. If you publish this package to pub.dev,
+this README's contents appear on the landing page for your package.
+
+For information about how to write a good package README, see the guide for
+[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+
+For general information about developing packages, see the Dart guide for
+[creating packages](https://dart.dev/guides/libraries/create-library-packages)
+and the Flutter guide for
+[developing packages and plugins](https://flutter.dev/developing-packages).
+-->
+<p>Dart bindings for the LIEF library.</p>
+<p>This package offer the possibility to parse PE, Elf and Mach-O binaries.</p>
+<h2 id="features">Features</h2>
+<p>Those bindings are based on the C API of LIEF, which is still very limited for the moment.</p>
+<p>This package currently expose 3 methods:</p>
+<ul>
+<li><code>parsePeFile</code></li>
+<li><code>parseElfFile</code></li>
+<li><code>parseMachoFile</code></li>
+</ul>
+<p>Those methods take a file path to the relevant binary and will produce a <code>{Pe,Elf,Macho}Binary</code> object that contains most of the binary informations and structs.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>This package supports Android, iOS, Linux, Windows and MacOS because dynamic library are needed for the bindings (that exclude the web support).</p>
+<h2 id="usage">Usage</h2>
+<p>Example from <a href="https://github.com/Liftu/lief.dart/blob/main/example/lief_example.dart">here</a>:</p>
+<pre class="language-dart"><code class="language-dart">PeBinary binary = Lief().parsePeFile("LIEF/lib/LIEF_win_x86.dll");
+
+print("PE file: ${binary.name}");
+print("Magic: 0x${binary.dosHeader.magic.toRadixString(16).toUpperCase()}");
+
+if (binary.sections.isNotEmpty) {
+    print("\nSections:");
+    for (final PeSection section in binary.sections) {
+        print("\t${section.name}");
+    }
+}
+
+if (binary.imports.isNotEmpty) {
+    print("\nImported libs:");
+    for (int i = 0; i &lt; binary.imports.length &amp;&amp; i &lt; 4; i++) {
+        print("\t\"${binary.imports[i].name}\":");
+
+        if (binary.imports[i].entries.isNotEmpty) {
+        for (int j = 0; j &lt; binary.imports[i].entries.length &amp;&amp; j &lt; 4; j++) {
+            print("\t\t\"${binary.imports[i].entries[j].name}\"");
+        }
+        }
+    }
+}
+</code></pre>
+<p>Result:</p>
+<pre class="language-dart"><code>PE file: LIEF_win_x86.dll
+Magic: 0x5A4D
+
+Sections:
+	.text
+	.rdata
+	.data
+	.rsrc
+	.reloc
+
+Imported libs:
+	"KERNEL32.dll":
+		"Sleep"
+		"GetCurrentProcessId"
+		"GetDynamicTimeZoneInformation"
+		"GetConsoleMode"
+
+</code></pre>
+<h2 id="additional-information">Additional information</h2>
+<p>This project is still an experiment on Dart bindings and thus is very limited.</p>
+<p>Many thanks to the <a href="https://github.com/romainthomas">developpers</a> of the <a href="https://github.com/lief-project/LIEF">LIEF Project</a>.</p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="lief">
+  <span class="name"><a href="lief/lief-library.html">lief</a></span> 
+
+</dt>
+<dd>Dart bindings for LIEF.
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li class="self-crumb">lief package</li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">lief</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="lief/lief-library.html">lief</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    lief
+      1.0.0
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
