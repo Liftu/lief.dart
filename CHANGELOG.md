@@ -1,3 +1,3 @@
 ## 1.0.0
-
-- Initial version.
+Initial version.
+Limited support for parsing ELF, PE and Mach-O binary files.
