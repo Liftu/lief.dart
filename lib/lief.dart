@@ -100,7 +100,8 @@ class Lief {
     }
 
     if (libraryPath.isEmpty) {
-      throw Exception("Unkown running platform (${Platform.operatingSystem})");
+      throw Exception(
+          "Unsupported platform \"${Platform.operatingSystem}\" with architecture \"$architecture\"");
     }
     dylib = DynamicLibrary.open(libraryPath);
     lief = LIEF(dylib);
